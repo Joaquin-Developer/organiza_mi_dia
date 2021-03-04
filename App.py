@@ -9,9 +9,9 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
-# return css static files:
+# return css and static files:
 @app.route('/public/<path:path>')
-def send_css(path):
+def send_css_and_media(path):
     return send_from_directory('public', path)
 
 @app.errorhandler(404)
@@ -20,7 +20,6 @@ def page_not_found(error):
     return render_template("404errorPage.html")
 
 def api_test():
-    ControllerDB.query("")
     app.run(debug=True)
 
 def run():

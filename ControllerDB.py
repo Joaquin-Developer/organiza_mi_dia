@@ -12,10 +12,10 @@ def get_connection():
 
 def query(sql_query):
     connection = get_connection()
-    cursor = connection_bd.cursor()
+    cursor = connection.cursor()
     cursor.execute(sql_query)
-    connection_bd.commit()
+    connection.commit()
     cursor.close()
-    connection_bd.close()
+    connection.close()
 
 # seguir mañana...
