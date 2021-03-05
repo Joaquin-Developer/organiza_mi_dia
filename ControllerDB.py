@@ -18,14 +18,23 @@ def query(sql_query):
     cursor.close()
     connection.close()
 
-def authentication(key):
+def authentication(key, username):
     final_key = str(key)
+    final_username = str(username)
     connection = get_connection()
     cursor = connection.cursor()
-    data = cursor.execute("SELECT key FROM KEY")
-    connection.commit()
+    cursor.execute("SELECT * FROM keyData")
+    # rows = cursor.fetchall()
+    rows = cursor.fetchone()
+    results = []
+    while rows is not None:
+        results.append(rows)
+        rows = cursor.fetchone()
+    
     cursor.close()
     connection.close()
+    for elem in results:
+        if elem[0] == key and elem[1] == username:
+            return True
+    raise Exception("Error de autenticación: clave incorrecta")
 
-
-# seguir mañana...

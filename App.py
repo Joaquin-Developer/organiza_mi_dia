@@ -9,6 +9,16 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
+@app.route("/auth", methods = ["GET"])
+def authentication():
+    try:        
+        authentication = ControllerDB.authentication("username", "key")
+        if authentication: return "autenticación ok!"
+    except Exception as e:
+        print("Error al autenticar!")
+        print(e)
+        return str(e)
+
 # return css and static files:
 @app.route('/public/<path:path>')
 def send_css_and_media(path):
@@ -22,11 +32,6 @@ def page_not_found(error):
 def api_test():
     # A ControllerDB basic test implementation:
     app.run(debug=True)
-    try:        
-        ControllerDB.authentication("jparrilla")
-    except Exception as e:
-        print("Error al autenticar!")
-        print(e)
 
 def run():
     app.run(debug=False)
