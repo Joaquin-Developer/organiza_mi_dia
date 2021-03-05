@@ -18,4 +18,14 @@ def query(sql_query):
     cursor.close()
     connection.close()
 
+def authentication(key):
+    final_key = str(key)
+    connection = get_connection()
+    cursor = connection.cursor()
+    data = cursor.execute("SELECT key FROM KEY")
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+
 # seguir mañana...

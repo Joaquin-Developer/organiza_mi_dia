@@ -20,7 +20,13 @@ def page_not_found(error):
     return render_template("404errorPage.html")
 
 def api_test():
+    # A ControllerDB basic test implementation:
     app.run(debug=True)
+    try:        
+        ControllerDB.authentication("jparrilla")
+    except Exception as e:
+        print("Error al autenticar!")
+        print(e)
 
 def run():
     app.run(debug=False)
