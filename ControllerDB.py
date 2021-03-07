@@ -90,6 +90,11 @@ def insert_task(task, username):
     relation_task_user(task, username)
     pass
 
+def relation_task_user(task, username):
+    id_task = get_task_id(task.name, task.description)
+    sql_query = "insert into task_user(id,username) values({}, '{}')"
+    query(sql_query.format(id_task, username))
+
 def get_last_task_id():
     pass
 
@@ -101,11 +106,8 @@ def get_task_id(name, description):
     if records == None:
         raise Exception("No se encontró")
     else:
-        return str(records[0][0])
+        return int(records[0][0])
 
-def relation_task_user(task, username):
-    id_task = get_task_id(task.name, task.description)
-    pass
 
 def get_all_tasks_from_user(username):
     sql_query = """select tu.id, tu.username, t.name, t.description, t.date_task,
@@ -119,8 +121,9 @@ def get_all_tasks_from_user(username):
     
     return str(data).replace("'", '"')
 
-def delete_task_from_user(username):
-    pass
+def delete_task_from_user(id_task):
+    sql_query = "update task set is_active=0 where id={}".format(id_task)
+    query(sql_query)
 
 def delete_all_tasks_from_user(username):
     pass

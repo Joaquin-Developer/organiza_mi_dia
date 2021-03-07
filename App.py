@@ -52,6 +52,23 @@ def insert_task():
         return str(e)
     # return json.dumps({ "data": message }, ensure_ascii= False)
 
+@app.route("/delete_task_from_user", methods=["POST"])
+def delete_task_from_user():
+    req = request.get_json(force=True)
+    username = req.get("username")
+    key = str(req.get("key_value"))
+    try:
+        authentication = ControllerDB.authentication(username, key)
+        if authentication:
+            print("autenticacion ok")
+            ControllerDB.delete_task_from_user(req.get("id_task"))
+            return "Tarea borrada exitosamente!"
+        #return str(req)
+        
+    except Exception as e:
+        print(e)
+        return str(e)
+
 # return css and static files:
 @app.route('/public/<path:path>')
 def send_css_and_media(path):
