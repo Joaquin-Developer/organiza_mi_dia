@@ -1,4 +1,5 @@
 function showHideElement(idElem, typeParam, action) {
+    console.log("entrada");
     let elem;
     if (typeParam === "id") {
         elem = document.querySelector("#" + idElem);
@@ -51,4 +52,16 @@ function showHtmlElement(element) {
 function hideHtmlElement(element) {
     element.classList.remove("block");
     element.classList.add("none");
+}
+
+function setActiveNavItem() {
+    if (location.pathname === "/"){
+        document.querySelector("#link_index").classList.add("active");
+    }
+    else if (location.pathname === "/insert_task") {
+        document.querySelector("#link_insert_task").classList.add("active");
+    } 
+    else if (location.pathname === "/modify_my_tasks") {
+        document.querySelector("#link_modify_my_tasks").classList.add("active");
+    }
 }

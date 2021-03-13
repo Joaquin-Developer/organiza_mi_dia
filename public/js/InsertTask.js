@@ -3,6 +3,7 @@ addEventListener("load", function() {
     if (JSON.parse(sessionStorage.getItem("authentication_organizaMiDia"))) {
         showUsernameInNav();
     }
+    setActiveNavItem();
 });
 
 const inputNameTask = document.querySelector("#input_name_task");

@@ -1,0 +1,3 @@
+addEventListener("load", function() {
+    setActiveNavItem();
+});

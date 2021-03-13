@@ -4,29 +4,35 @@ from flask import Flask, render_template, request, json, send_from_directory, js
 import ControllerDB
 from models import Task
 import datetime
+import os
 
 app = Flask(__name__)
 
 @app.route("/", methods = ["GET"])
 def index():
     # return render_template("buildingPage.html")
-    return render_template("index.html")
+    return render_template("index.html", title = "Inicio")
 
 @app.route("/insert_task", methods = ["GET"])
 def get_insert_task():
     # return render_template("buildingPage.html")
-    return render_template("insertTask.html")
+    
+    return render_template("insertTask.html", title = "Ingreso de Tareas")
+
+@app.route("/modify_my_tasks", methods = ["GET"])
+def get_modify_my_tasks():
+    return render_template("modifyMyTasks.html", title = "Editar Mis Tareas")
 
 # Provisorie:
-@app.route("/index", methods = ["GET"])
-def get_index_page():
-    # task = Task.Task(1212, "Práctico 2 GAL1", "Sistemas Lineales", datetime.date.today(), True)
+# @app.route("/index", methods = ["GET"])
+# def get_index_page():
+#     # task = Task.Task(1212, "Práctico 2 GAL1", "Sistemas Lineales", datetime.date.today(), True)
     
-    #return render_template("index.html")
-    try:
-        return ControllerDB.get_task_id("Practico 1 GAL", "Repdede")
-    except Exception as e:
-        return str(e)
+#     #return render_template("index.html")
+#     try:
+#         return ControllerDB.get_task_id("Practico 1 GAL", "Repdede")
+#     except Exception as e:
+#         return str(e)
     
 
 @app.route("/auth", methods = ["POST"])
