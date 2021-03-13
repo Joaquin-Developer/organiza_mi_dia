@@ -23,7 +23,6 @@ body {
 
 .error404 h1 { font-size: 20px; }
 .error404 p { font-size: 16px; }
-
 #errorLogin { display: none; }
 .formLogin { display: block; }
 .none { display: none }

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="/public/css/Main.css">
-    <title>Inicio - Organiza Mi Día</title>
+    <title>Ingreso de Tareas - Organiza Mi Día</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -18,10 +18,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Mis Tareas</a>
+                        <a class="nav-link" aria-current="page" href="/">Mis Tareas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/insert_task">Ingresar una Tarea</a>
+                        <a class="nav-link active" href="#">Ingresar una Tarea</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Gestionar Mis Tareas</a>
@@ -36,40 +36,33 @@
     <div class="container">
         <div id="errorAlert" class="alert alert-danger none" role="alert"></div>
         <div id="successAlert" class="alert alert-success none" role="alert"></div>
-        <div class="formLogin none">
-            <br>
-            <h3>Primero, autentíquese:</h3>
-            <form class="row g-3">
-                <div class="col-auto">
-                    <input type="text" id="inputUsername" class="form-control" placeholder="Nombre de usuario">
+        <h2>Guarde una nueva tarea:</h2>
+        <form>
+            <div class="row">
+                <div class="col">
+                    Nombre de la Tarea:
+                    <input id="input_name_task" type="text" class="form-control" placeholder="Ej: Práctico 3 de Cálculo">
                 </div>
-                <div class="col-auto">
-                    <input type="password" id="inputAuth" class="form-control" placeholder="Contraseña">
+                <div class="col">
+                    Fecha:
+                    <div class="input-group date" data-provide="datepicker">
+                        <input type="date" id="date_task" class="form-control" value="2021-03-13">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="checkShowPassword">
-                    <label class="form-check-label" for="checkShowPassword">Mostrar Contraseña</label>
+            </div>
+            <div class="row">
+                <div class="col">
+                    Descripción de la Tarea:
+                    <input id="input_description" type="text" class="form-control" placeholder="Ej: Práctico de cálculo de Integrales de la semana 3">
                 </div>
-                <div class="col-auto">
-                    <button type="submit" id="btnLogin" class="btn btn-primary mb-3">Autenticar</button>
-                </div>
-            </form>
-        </div>
-        <div class="myTasks none">
-            <h1>Mis Tareas:</h1>
-            <br>
-            <table class="table table-dark table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Nombre:</th>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Estado</th>
-                    </tr>
-                </thead>
-                <tbody id="tbodyMyTasks"></tbody>
-            </table>
-        </div>        
+            </div>
+            <div class="d-grid gap-2">
+                <button id="btnSaveTask" class="btn btn-secondary" type="submit">Guardar</button>
+            </div><br>
+        </form>
     </div>
     <footer class="footer py-5">
         <div class="container">
@@ -86,7 +79,7 @@
     </footer>
     <script src="https://momentjs.com/downloads/moment.min.js"></script>
     <script src="/public/js/DomFunctions.js"></script>
-    <script src="/public/js/ShowTasks.js"></script>
+    <script src="/public/js/InsertTask.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -11,24 +11,6 @@ addEventListener("load", async () => {
     }
 });
 
-function showHideElement(idElem, typeParam, action) {
-    let elem;
-    if (typeParam === "id") {
-        elem = document.querySelector("#" + idElem);
-    } else if (typeParam === "class") {
-        elem = document.querySelector("." + idElem);
-    } else { return; }
-
-    if (action === "show") {
-        elem.classList.remove("none");
-        elem.classList.add("block");
-    } else if (action === "hide") {
-        elem.classList.remove("block");
-        elem.classList.add("none");
-    }
-    
-}
-
 const checkShowPassword = document.querySelector("#checkShowPassword");
 checkShowPassword.addEventListener("change", () => {
     if (checkShowPassword.checked)
@@ -41,11 +23,11 @@ document.querySelector("#btnLogin").addEventListener("click", async (evt) => {
     evt.preventDefault();
     const username = document.querySelector("#inputUsername");
     if (username.value && inputAuth.value) {
-        const resp = await fetch("/auth", {
+        const req = await fetch("/auth", {
             method: "POST", headers: { 'Content-Type': 'application/json' },
             mode: 'no-cors', body: JSON.stringify({ "username": username.value, "psw": inputAuth.value })
         });
-        let statusAuth = await resp.json();
+        let statusAuth = await req.json();
         if (statusAuth.status) {
             sessionStorage.setItem("authentication_organizaMiDia", true);
             sessionStorage.setItem("username_organizaMiDia", username.value);
@@ -88,7 +70,10 @@ async function loadMyTasks() {
 
 function getDate(dateString) {    
     const dt = moment(dateString).format("dddd D, MMMM YYYY");
-
+    /**
+     * Este código es una chanchada!
+     * Te dará cancer visual leer todo esto:
+     */
     let day = dt.split(" ")[0];
     switch (day) {
         case "Monday": day = "Lunes"; break;
@@ -122,10 +107,4 @@ function getDate(dateString) {
 async function getMyTasks() {
     const userName = sessionStorage.getItem("username_organizaMiDia");
     return await (await fetch("/get_tasks_from_" + userName)).json();
-}
-
-function showUsernameInNav() {
-    const elem = document.querySelector(".nav-username");
-    console.log(elem);
-    elem.appendChild(document.createTextNode(`Usuario: ${sessionStorage.getItem("username_organizaMiDia")}`));
 }

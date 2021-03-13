@@ -103,10 +103,11 @@ def get_task_id(name, description):
     sql_query = "select id from task where name='{}' and description='{}'".format(name, description)    
     records = select_query(sql_query, get_json=False)
     # id_task = results[0][0]
-    print(records)
+
     if records == None:
-        raise Exception("No se encontró")
+        raise Exception("No se encontró el índice de la tarea solicitada")
     else:
+        print(int(records[0][0]))
         return int(records[0][0])
 
 

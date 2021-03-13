@@ -12,6 +12,11 @@ def index():
     # return render_template("buildingPage.html")
     return render_template("index.html")
 
+@app.route("/insert_task", methods = ["GET"])
+def get_insert_task():
+    # return render_template("buildingPage.html")
+    return render_template("insertTask.html")
+
 # Provisorie:
 @app.route("/index", methods = ["GET"])
 def get_index_page():
@@ -48,12 +53,14 @@ def get_all_tasks_from_user(username):
 @app.route("/insert_task", methods=["POST"])
 def insert_task():
     data = request.get_json(force=True)
-    task = Task.Task(None, data.get("name"), data.get("description"), data.get("date_task"), data.get("status"))
+    task = Task.Task(None, data.get("name"), data.get("description"), data.get("date_task"), status=False)
     try:
         ControllerDB.insert_task(task, data.get("username"))
-        return str(data)
+        return json.dumps({"status": True}, ensure_ascii= False)
+        
     except Exception as e:
-        return str(e)
+        print(e)
+        return json.dumps({"status": False}, ensure_ascii= False)
     # return json.dumps({ "data": message }, ensure_ascii= False)
 
 @app.route("/delete_task_from_user", methods=["POST"])
