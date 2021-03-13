@@ -1,5 +1,5 @@
 
-import pymysql, json
+import pymysql, json, datetime
 from models import Task
 from database import data_connection
 
@@ -75,7 +75,8 @@ def authentication(username, keyValue):
         for elem in results:
             if elem[0] == username and elem[1] == keyValue:
                 return True
-        raise Exception("Error de autenticación: clave incorrecta")
+        return False                
+        #raise Exception("Error de autenticación: clave incorrecta")
 
 
 def insert_task(task, username):
@@ -112,7 +113,7 @@ def get_task_id(name, description):
 def get_all_tasks_from_user(username):
     sql_query = """select tu.id, tu.username, t.name, t.description, t.date_task,
     t.status from task_user tu join task t on(t.id=tu.id)
-    where tu.username='{}' and t.is_active=1"""
+    where tu.username='{}' and t.is_active=1 order by t.date_task asc"""
     records = select_query(sql_query.format(username), get_json=False)
     data = []
     for t in records:
@@ -130,5 +131,19 @@ def delete_all_tasks_from_user(username):
 
 # t as task()
 def task_to_object(t):
-    return {"id": t.id_task, "name": t.name, "description": t.description, "date": t.date_task, "status": t.status}
+    return {"id": t.id_task, "name": t.name, "description": t.description, "date": date_to_js_format(t.date_task), "status": t.status}
 
+
+def date_to_js_format(date_task):
+    months = ["Enero", "Feb.", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Set.", "Oct.", "Nov.", "Dic."]
+    # month = date_task.month
+    # print(type(month))
+    # if month < 10: month = str("0" + month)
+
+    # day = date_task.day
+    # if day < 10: day = str("0" + day)
+
+    return str(date_task.year) + "-" + str(date_task.month) + "-" + str(date_task.day)
+
+    # return str(date_task.day) + " de " + str(months[date_task.month - 1]) + ", " + str(date_task.year)
+    pass

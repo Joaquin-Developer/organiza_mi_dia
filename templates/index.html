@@ -1,12 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="/public/css/Main.css">
+    <title>Inicio - Organiza Mi Día</title>
 </head>
 <body>
-    Index
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Organiza Mi Día!</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Mis Tareas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Ingresar una Tarea</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Gestionar Mis Tareas</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <div class="nav-username"></div>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div id="errorLogin" class="alert alert-danger" role="alert"></div>
+        <div class="formLogin none">
+            <br>
+            <h3>Primero, autentíquese:</h3>
+            <form class="row g-3">
+                <div class="col-auto">
+                    <input type="text" id="inputUsername" class="form-control" placeholder="Nombre de usuario">
+                </div>
+                <div class="col-auto">
+                    <input type="password" id="inputAuth" class="form-control" placeholder="Contraseña">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="checkShowPassword">
+                    <label class="form-check-label" for="checkShowPassword">Mostrar Contraseña</label>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" id="btnLogin" class="btn btn-primary mb-3">Autenticar</button>
+                </div>
+            </form>
+        </div>
+        <div class="myTasks none">
+            <h1>Mis Tareas:</h1>
+            <br>
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre:</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyMyTasks"></tbody>
+            </table>
+        </div>
+        
+    </div>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script src="/public/js/Script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </body>
 </html>
