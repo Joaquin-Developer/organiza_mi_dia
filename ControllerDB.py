@@ -75,7 +75,8 @@ def authentication(username, keyValue):
         for elem in results:
             if elem[0] == username and elem[1] == keyValue:
                 return True
-        raise Exception("Error de autenticación: clave incorrecta")
+        return False                
+        #raise Exception("Error de autenticación: clave incorrecta")
 
 
 def insert_task(task, username):

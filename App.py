@@ -9,7 +9,8 @@ app = Flask(__name__)
 
 @app.route("/", methods = ["GET"])
 def index():
-    return render_template("buildingPage.html")
+    # return render_template("buildingPage.html")
+    return render_template("index.html")
 
 # Provisorie:
 @app.route("/index", methods = ["GET"])
@@ -23,11 +24,14 @@ def get_index_page():
         return str(e)
     
 
-@app.route("/auth", methods = ["GET"])
+@app.route("/auth", methods = ["POST"])
 def authentication():
-    try:        
-        authentication = ControllerDB.authentication("joaquin", "123")
-        if authentication: return "autenticación ok!"
+    try:
+        data = request.get_json(force=True)
+        print(data)
+        authentication = ControllerDB.authentication(data.get("username"), data.get("psw"))
+        if authentication: return json.dumps({"status": True}, ensure_ascii= False)
+        else: return json.dumps({"status": False}, ensure_ascii= False)
     except Exception as e:
         print(e)
         return str(e)

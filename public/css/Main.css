@@ -1,5 +1,10 @@
-body {
+.error404 {
     font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    background: #000;
+    color: #fff;
 }
 
 .error404 {
@@ -18,3 +23,8 @@ body {
 
 .error404 h1 { font-size: 20px; }
 .error404 p { font-size: 16px; }
+
+#errorLogin { display: none; }
+.formLogin { display: block; }
+.none { display: none }
+.block { display: block; }
