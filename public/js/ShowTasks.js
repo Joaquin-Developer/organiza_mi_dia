@@ -2,6 +2,7 @@ const divMyTasks = document.querySelector(".myTasks");
 const inputAuth = document.querySelector("#inputAuth");
 
 addEventListener("load", async () => {
+    
     if (! JSON.parse(sessionStorage.getItem("authentication_organizaMiDia"))) {
         showHideElement("formLogin", "class", "show");
     } else {
@@ -9,6 +10,7 @@ addEventListener("load", async () => {
         await loadMyTasks(); 
         showUsernameInNav();
     }
+    setActiveNavItem();
 });
 
 const checkShowPassword = document.querySelector("#checkShowPassword");
@@ -70,10 +72,7 @@ async function loadMyTasks() {
 
 function getDate(dateString) {    
     const dt = moment(dateString).format("dddd D, MMMM YYYY");
-    /**
-     * Este código es una chanchada!
-     * Te dará cancer visual leer todo esto:
-     */
+    
     let day = dt.split(" ")[0];
     switch (day) {
         case "Monday": day = "Lunes"; break;
@@ -100,7 +99,6 @@ function getDate(dateString) {
         case "November": month = "Noviembre"; break;
         case "December": month = "Diciembre"; break;
     }
-    
     return `${day} ${dt.split(" ")[1].replaceAll(",", "")} de ${month}`;
 }
 
