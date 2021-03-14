@@ -41,11 +41,12 @@ def authentication():
         data = request.get_json(force=True)
         print(data)
         authentication = ControllerDB.authentication(data.get("username"), data.get("psw"))
-        if authentication: return json.dumps({"status": True}, ensure_ascii= False)
-        else: return json.dumps({"status": False}, ensure_ascii= False)
+        if authentication: return json.dumps({"status": True, "error": ""}, ensure_ascii= False)
+        else: return json.dumps({"status": False, "error": ""}, ensure_ascii= False)
     except Exception as e:
         print(e)
-        return str(e)
+        return json.dumps({"status": False, "error": str(e)}, ensure_ascii= False)
+        # return str(e)
 
 @app.route("/get_tasks_from_<username>", methods=["GET"])
 def get_all_tasks_from_user(username):
