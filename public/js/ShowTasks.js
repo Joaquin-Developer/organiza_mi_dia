@@ -1,8 +1,9 @@
 const divMyTasks = document.querySelector(".myTasks");
 const inputAuth = document.querySelector("#inputAuth");
+const selectFilter = document.querySelector("#select_filter");
 
 addEventListener("load", async () => {
-    
+    setActiveNavItem();
     if (! JSON.parse(sessionStorage.getItem("authentication_organizaMiDia"))) {
         showHideElement("formLogin", "class", "show");
     } else {
@@ -10,7 +11,6 @@ addEventListener("load", async () => {
         await loadMyTasks(); 
         showUsernameInNav();
     }
-    setActiveNavItem();
 });
 
 const checkShowPassword = document.querySelector("#checkShowPassword");
@@ -24,30 +24,42 @@ checkShowPassword.addEventListener("change", () => {
 document.querySelector("#btnLogin").addEventListener("click", async (evt) => {
     evt.preventDefault();
     const username = document.querySelector("#inputUsername");
+
     if (username.value && inputAuth.value) {
-        const req = await fetch("/auth", {
-            method: "POST", headers: { 'Content-Type': 'application/json' },
-            mode: 'no-cors', body: JSON.stringify({ "username": username.value, "psw": inputAuth.value })
-        });
-        let statusAuth = await req.json();
-        if (statusAuth.status) {
-            sessionStorage.setItem("authentication_organizaMiDia", true);
-            sessionStorage.setItem("username_organizaMiDia", username.value);
-            showHideElement("formLogin", "class", "hide");
-            showHideElement("myTasks", "class", "show");
-            await loadMyTasks();
-            showUsernameInNav();
+        try {
+            const req = await fetch("/auth", {
+                method: "POST", headers: { 'Content-Type': 'application/json' },
+                mode: 'no-cors', body: JSON.stringify({ "username": username.value, "psw": inputAuth.value })
+            });
+            let statusAuth = await req.json();
+
+            if (statusAuth.status && (! statusAuth.error)) {
+                sessionStorage.setItem("authentication_organizaMiDia", true);
+                sessionStorage.setItem("username_organizaMiDia", username.value);
+                showHideElement("formLogin", "class", "hide");
+                showHideElement("myTasks", "class", "show");
+                await loadMyTasks();
+                showUsernameInNav();
+            } else if (statusAuth.status === false && (! statusAuth.error)) {
+                showAlert("error", "Error: Usuario y/o contraseña incorrectas.");
+            } else {
+                showAlert("error", "Se produjo un error interno en el servidor.");
+            }
+        } catch (error) {
+            showAlert("error", error);
         }
+    } else {
+        showAlert("error", "Error: Debe indicar usuario y contraseña.");
     }
-    
 });
 
 async function loadMyTasks() {
     const data = await getMyTasks();
-    console.log(data);
     sessionStorage.setItem("myTasks_organizaMiDia", JSON.stringify(data));
     // Add data in table:
     const tbody = document.querySelector("#tbodyMyTasks");
+    removeChilds(tbody);
+
     data.forEach(task => {
         const tr = document.createElement("TR");
         const tdName = document.createElement("TD");
@@ -64,10 +76,8 @@ async function loadMyTasks() {
         tr.appendChild(tdDesc);
         tr.appendChild(tdDate);
         tr.appendChild(tdStatus);
-
         tbody.appendChild(tr);
     });
-
 }
 
 function getDate(dateString) {    
@@ -103,6 +113,15 @@ function getDate(dateString) {
 }
 
 async function getMyTasks() {
-    const userName = sessionStorage.getItem("username_organizaMiDia");
-    return await (await fetch("/get_tasks_from_" + userName)).json();
+    try {
+        const userName = sessionStorage.getItem("username_organizaMiDia");
+        return await (await fetch("/get_tasks_from_" + userName)).json();
+    } catch (error) {
+        showAlert("error", "Se produjo un error al obtener las tareas.");
+    }
 }
+
+selectFilter.addEventListener("change", async () => {
+    console.log(selectFilter.value);
+    await loadMyTasks();
+});

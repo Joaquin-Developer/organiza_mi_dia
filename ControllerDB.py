@@ -9,22 +9,26 @@ debug_mode_on = True    # False: in deployment!
 # touple a JSON aplicando alguna librería externa!
 
 def get_connection():
-    if debug_mode_on:
-        # localhost database
-        return pymysql.connect(
-            user = data_connection.dev_database_user,
-            password = data_connection.dev_database_passw,
-            host = data_connection.dev_database_host,
-            database = data_connection.dev_database_name
-        )
-    else:
-        # (In production: GearHost MySQL database)
-        return pymysql.connect(
-            user = data_connection.database_user,
-            password = data_connection.database_passw,
-            host = data_connection.database_host,
-            database = data_connection.database_name
-        )
+    try:
+        if debug_mode_on:
+            # localhost database
+            return pymysql.connect(
+                user = data_connection.dev_database_user,
+                password = data_connection.dev_database_passw,
+                host = data_connection.dev_database_host,
+                database = data_connection.dev_database_name
+            )
+        else:
+            # (In production: GearHost MySQL database)
+            return pymysql.connect(
+                user = data_connection.database_user,
+                password = data_connection.database_passw,
+                host = data_connection.database_host,
+                database = data_connection.database_name
+            )
+    except Exception as e:
+        raise e
+        pass
 
 def query(sql_query):
     connection = get_connection()

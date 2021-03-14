@@ -1,5 +1,4 @@
 function showHideElement(idElem, typeParam, action) {
-    console.log("entrada");
     let elem;
     if (typeParam === "id") {
         elem = document.querySelector("#" + idElem);
@@ -13,13 +12,11 @@ function showHideElement(idElem, typeParam, action) {
     } else if (action === "hide") {
         elem.classList.remove("block");
         elem.classList.add("none");
-    }
-    
+    }   
 }
 
 function showUsernameInNav() {
     const elem = document.querySelector(".nav-username");
-    console.log(elem);
     elem.appendChild(document.createTextNode(`Usuario: ${sessionStorage.getItem("username_organizaMiDia")}`));
 }
 
@@ -31,13 +28,9 @@ function showAlert(typeAlert, textAlert) {
         alertElem = document.querySelector("#successAlert");
     } else { return; }
 
-    if (alertElem.firstChild) { 
-        alertElem.removeChild(alertElem.firstChild);
-    }
-    
+    if (alertElem.firstChild) alertElem.removeChild(alertElem.firstChild);
     alertElem.appendChild(document.createTextNode(textAlert));
     showHtmlElement(alertElem);
-
     setTimeout(() => {
         hideHtmlElement(alertElem);
     }, 6000);
@@ -54,6 +47,12 @@ function hideHtmlElement(element) {
     element.classList.add("none");
 }
 
+function removeChilds(elem) {
+    while (elem.firstChild) { 
+        elem.removeChild(elem.firstChild);
+    }
+}
+
 function setActiveNavItem() {
     if (location.pathname === "/"){
         document.querySelector("#link_index").classList.add("active");
@@ -65,3 +64,9 @@ function setActiveNavItem() {
         document.querySelector("#link_modify_my_tasks").classList.add("active");
     }
 }
+
+// addEventListener("beforeunload", (event) => {
+//     localStorage.removeItem("authentication_organizaMiDia");
+//     localStorage.removeItem("myTasks_organizaMiDia");
+//     localStorage.removeItem("username_organizaMiDia");
+// });
