@@ -56,7 +56,6 @@ document.querySelector("#btnLogin").addEventListener("click", async (evt) => {
 async function loadMyTasks() {
     const data = await getMyTasks();
     sessionStorage.setItem("myTasks_organizaMiDia", JSON.stringify(data));
-    // Add data in table:
     const tbody = document.querySelector("#tbodyMyTasks");
     removeChilds(tbody);
 
@@ -115,7 +114,19 @@ function getDate(dateString) {
 async function getMyTasks() {
     try {
         const userName = sessionStorage.getItem("username_organizaMiDia");
-        return await (await fetch("/get_tasks_from_" + userName)).json();
+        switch (parseInt(selectFilter.value)) {
+            case 1: return await (await fetch(`/get_all_tasks_for_today_from_${userName}`)).json();
+            case 2: return await (await fetch(`/get_all_tasks_to_do_for_today_from_${userName}`)).json();
+            case 3: return await (await fetch("/get_all_tasks_for_this_week_from_" + userName)).json();
+            case 4: return await (await fetch("/get_all_tasks_for_this_week_to_do_from_" + userName)).json();
+            case 5: return await (await fetch("/get_all_tasks_done_from_" + userName)).json();
+            case 6: return await (await fetch("/get_all_tasks_to_do_from_" + userName)).json();
+            case 7: return await (await fetch("/get_tasks_from_" + userName)).json();
+            default: 
+                showAlert("error", "Opción incorrecta.");
+                return []; 
+                break;
+        }
     } catch (error) {
         showAlert("error", "Se produjo un error al obtener las tareas.");
     }
