@@ -22,6 +22,24 @@ def get_insert_task():
 def get_modify_my_tasks():
     return render_template("modifyMyTasks.html", title = "Editar Mis Tareas")
 
+@app.route("/sign_in", methods = ["GET"])
+def get_sign_in():
+    return render_template("sign_in.html", title = "Registro")
+
+@app.route("/function_sign_in", methods = ["POST"])
+def sign_in():
+    try:
+        data = request.get_json(force=True)
+        resp = ControllerDB.create_new_user(data.get("new_username"), data.get("new_password"))        
+        if resp[0]:
+            return json.dumps({"status": True, "message": resp[1]}, ensure_ascii= False)
+        else:
+            return json.dumps({"status": False, "message": resp[1]}, ensure_ascii= False)
+
+    except Exception as e:
+        print(e)
+        return json.dumps({"status": False, "message": "Se produjo un error interno."}, ensure_ascii= False)
+
 # Provisorie:
 # @app.route("/index", methods = ["GET"])
 # def get_index_page():
@@ -156,5 +174,5 @@ def run():
     app.run(debug=False)
 
 if __name__ == '__main__':
-    #test()
-    run()
+    test()
+    # run()
