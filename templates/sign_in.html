@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block container %}
+<div class="container">
+    <div id="errorAlert" class="alert alert-danger none" role="alert"></div>
+    <div id="successAlert" class="alert alert-success none" role="alert"></div>
+    <div id="form_sign_in">
+        <div class="row">
+            <label for="row" class="form-label">Datos de inicio de sesión:</label>
+            <div class="col">
+                <input id="txtNewUsername" type="text" class="form-control" placeholder="Nombre de Usuario">
+            </div>
+            <div class="col">
+                <input type="password" id="txtNewPassword" class="form-control" placeholder="Contraseña">
+            </div>
+        </div><br>
+        <div class="row">
+            <p>Es recomendable no usar la misma contraseña que use habitualmemte.</p>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input id="email" type="email" class="form-control" placeholder="Correo electrónico">
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <input id="verification_code" type="text" class="form-control" placeholder="Código de verificación enviado a su correo" aria-describedby="button-addon2">
+                    <button id="btnVerificationCode" class="btn btn-outline-danger" type="button">Solicite un código</button>
+                </div>
+            </div><br>
+        </div>
+        <div class="d-grid gap-2">
+            <button id="btnSignIn" class="btn btn-outline-secondary" type="submit">Registrarse</button>
+        </div>
+    </div>    
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="/public/js/SignIn.js"></script>
+{% endblock %}

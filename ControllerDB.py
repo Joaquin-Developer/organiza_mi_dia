@@ -3,7 +3,7 @@ import pymysql, json, datetime
 from models import Task
 from database import data_connection
 
-debug_mode_on = False    # False: in deployment!
+debug_mode_on = True    # False: in deployment!
 # Nota:
 # Podrían mejorarse las conversiónes de
 # touple a JSON aplicando alguna librería externa!
@@ -225,3 +225,14 @@ def date_to_js_format(date_task):
 
     # return str(date_task.day) + " de " + str(months[date_task.month - 1]) + ", " + str(date_task.year)
     pass
+
+def create_new_user(username, keyValue):
+    sql_query =  "select username from users where username = '{}'"
+    records = select_query(sql_query.format(username), get_json=False)
+    if len(records) != 0:
+        print(len(records))
+        return [False, "Ya existe un usuario con este nombre."]
+    
+    sql_query_insert_user = "insert into users (username,keyValue) values('{}', '{}')"
+    query(sql_query_insert_user.format(username, keyValue))
+    return [True, "Usuario creado correctamente."]
