@@ -1,33 +1,52 @@
 {% extends "base.html" %}
 {% block container %}
 <div class="container">
-    <div id="errorAlert" class="alert alert-danger none" role="alert"></div>
-    <div id="successAlert" class="alert alert-success none" role="alert"></div>
-    <h2>Editar mis tareas:</h2>
-    <form>
+    <h2>Editar mis tareas:</h2><br>
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nombre:</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Modificar</th>
+            </tr>
+        </thead>
+        <tbody id="tbodyMyTasks"></tbody>
+    </table>
+    <br>
+    <form class="form_edit_tasks none">
+        <h3>Editar:</h3>
+        <div id="errorAlert" class="alert alert-danger none" role="alert"></div>
+        <div id="successAlert" class="alert alert-success none" role="alert"></div>
         <div class="row">
             <div class="col">
-                Nombre de la Tarea:
-                <input id="input_name_task" type="text" class="form-control" placeholder="Ej: Práctico 3 de Cálculo">
+                Nombre de la Tarea:<input id="input_name_task" type="text" class="form-control">
             </div>
             <div class="col">
                 Fecha:
                 <div class="input-group date" data-provide="datepicker">
-                    <input type="date" id="date_task" class="form-control" value="2021-03-13">
+                    <input type="date" id="date_task" class="form-control">
                     <div class="input-group-addon">
                         <span class="glyphicon glyphicon-th"></span>
                     </div>
                 </div>
             </div>
+            <div class="col">
+                Estado:
+                <select id="select_task_status" class="form-select">
+                    <option value="1">Por hacer</option>
+                    <option value="2">Hecha</option>
+                </select>
+            </div>
         </div>
         <div class="row">
             <div class="col">
-                Descripción de la Tarea:
-                <input id="input_description" type="text" class="form-control" placeholder="Ej: Práctico de cálculo de Integrales de la semana 3">
+                Descripción de la Tarea:<input id="input_description" type="text" class="form-control">
             </div>
         </div>
         <div class="d-grid gap-2">
-            <button id="btnSaveTask" class="btn btn-secondary" type="submit">Guardar</button>
+            <button id="btnSaveTask" class="btn btn-secondary" type="submit">Modificar</button>
         </div><br>
     </form>
 </div>

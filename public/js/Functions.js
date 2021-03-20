@@ -65,6 +65,38 @@ function setActiveNavItem() {
     }
 }
 
+function getDate(dateString) {    
+    const dt = moment(dateString).format("dddd D, MMMM YYYY");
+    
+    let day = dt.split(" ")[0];
+    switch (day) {
+        case "Monday": day = "Lunes"; break;
+        case "Tuesday": day = "Martes"; break;
+        case "Wednesday": day = "Miércoles"; break;
+        case "Thursday": day = "Jueves"; break;
+        case "Friday": day = "Viernes"; break;
+        case "Saturday": day = "Sábado"; break;
+        case "Sunday": day = "Domingo"; break;
+    }
+
+    let month = dt.split(" ")[2];
+    switch (month) {
+        case "January": month = "Enero"; break;
+        case "February": month = "Febrero"; break;
+        case "March": month = "Marzo"; break;
+        case "April": month = "Abril"; break;
+        case "May": month = "Mayo"; break;
+        case "June": month = "Junio"; break;
+        case "July": month = "Julio"; break;
+        case "August": month = "Agosto"; break;
+        case "September": month = "Setiembre"; break;
+        case "October": month = "Octubre"; break;
+        case "November": month = "Noviembre"; break;
+        case "December": month = "Diciembre"; break;
+    }
+    return `${day} ${dt.split(" ")[1].replaceAll(",", "")} de ${month}`;
+}
+
 // addEventListener("beforeunload", (event) => {
 //     localStorage.removeItem("authentication_organizaMiDia");
 //     localStorage.removeItem("myTasks_organizaMiDia");
