@@ -15,7 +15,8 @@ def get_connection():
             return pymysql.connect(
                 user = data_connection.dev_database_user,
                 password = data_connection.dev_database_passw,
-                host = data_connection.dev_database_host,
+		host ="http://den1.mysql1.gear.host/3306",
+                # host = data_connection.dev_database_host,
                 database = data_connection.dev_database_name
             )
         else:
