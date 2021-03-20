@@ -3,7 +3,7 @@ import pymysql, json, datetime
 from models import Task
 from database import data_connection
 
-debug_mode_on = True    # False: in deployment!
+debug_mode_on = False    # False: in deployment!
 # Nota:
 # Podrían mejorarse las conversiónes de
 # touple a JSON aplicando alguna librería externa!
