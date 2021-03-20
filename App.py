@@ -187,5 +187,5 @@ def run():
     app.run(debug=False)
 
 if __name__ == '__main__':
-    test()
-    # run()
+    run()
+    # test()
