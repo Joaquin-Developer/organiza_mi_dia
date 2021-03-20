@@ -5,7 +5,7 @@ from database import data_connection
 
 debug_mode_on = False    # False: in deployment!
 # Nota:
-# Podrían mejorarse las conversiónes de
+# Podrían mejorarse las conversiónes de 
 # touple a JSON aplicando alguna librería externa!
 
 def get_connection():
