@@ -200,6 +200,17 @@ def get_all_tasks_to_do(username):
         data.append(task_to_object(task))    
     return str(data).replace("'", '"')
 
+
+def update_task(task, username):
+    print(task.my_base())
+    sql_query = """update task 
+    set name = '{}',
+    description = '{}',
+    date_task = '{}',
+    status = {}
+    where id = {} """
+    query(sql_query.format(task.name, task.description, task.date_task, task.status, task.id_task))
+
 def delete_task_from_user(id_task):
     sql_query = "update task set is_active=0 where id={}".format(id_task)
     query(sql_query)

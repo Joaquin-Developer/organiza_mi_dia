@@ -140,6 +140,19 @@ def insert_task():
         return json.dumps({"status": False}, ensure_ascii= False)
     # return json.dumps({ "data": message }, ensure_ascii= False)
 
+
+@app.route("/update_task", methods=["POST"])
+def update_task():
+    data = request.get_json(force=True)
+    task = Task.Task(data.get("id"), data.get("name"), data.get("description"), data.get("date_task"), status=False)
+    try:
+        ControllerDB.update_task(task, data.get("username"))
+        return json.dumps({"status": True}, ensure_ascii= False)
+    except Exception as e:
+        print(e)
+        return json.dumps({"status": False}, ensure_ascii= False)
+    
+
 @app.route("/delete_task_from_user", methods=["POST"])
 def delete_task_from_user():
     req = request.get_json(force=True)
