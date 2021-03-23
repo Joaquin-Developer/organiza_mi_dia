@@ -2,6 +2,7 @@ addEventListener("load", function() {
     setActiveNavItem();
     if (JSON.parse(sessionStorage.getItem("authentication_organizaMiDia"))) {
         showUsernameInNav();
+        document.getElementById("date_task").value = getActualDate();
     }  else {
         location.href = "/";
     }
