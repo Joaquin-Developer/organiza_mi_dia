@@ -36,7 +36,6 @@ function showAlert(typeAlert, textAlert) {
     }, 6000);
 }
 
-// show and hide html elements:
 function showHtmlElement(element) {
     element.classList.remove("none");
     element.classList.add("block");
@@ -65,36 +64,18 @@ function setActiveNavItem() {
     }
 }
 
-function getDate(dateString) {    
-    const dt = moment(dateString).format("dddd D, MMMM YYYY");
+function getDate(dateString) {
+    let days = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+    let months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo",
+        "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     
-    let day = dt.split(" ")[0];
-    switch (day) {
-        case "Monday": day = "Lunes"; break;
-        case "Tuesday": day = "Martes"; break;
-        case "Wednesday": day = "Miércoles"; break;
-        case "Thursday": day = "Jueves"; break;
-        case "Friday": day = "Viernes"; break;
-        case "Saturday": day = "Sábado"; break;
-        case "Sunday": day = "Domingo"; break;
-    }
+    const month = months[parseInt(dateString.split("-")[1]) - 1];
+    const day = days[new Date(dateString + " ").getDay()];
+    return `${day} ${dateString.split("-")[2]} de ${month}`;
+}
 
-    let month = dt.split(" ")[2];
-    switch (month) {
-        case "January": month = "Enero"; break;
-        case "February": month = "Febrero"; break;
-        case "March": month = "Marzo"; break;
-        case "April": month = "Abril"; break;
-        case "May": month = "Mayo"; break;
-        case "June": month = "Junio"; break;
-        case "July": month = "Julio"; break;
-        case "August": month = "Agosto"; break;
-        case "September": month = "Setiembre"; break;
-        case "October": month = "Octubre"; break;
-        case "November": month = "Noviembre"; break;
-        case "December": month = "Diciembre"; break;
-    }
-    return `${day} ${dt.split(" ")[1].replaceAll(",", "")} de ${month}`;
+function getActualDate() {
+    return 0;
 }
 
 // addEventListener("beforeunload", (event) => {
