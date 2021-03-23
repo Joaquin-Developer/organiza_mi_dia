@@ -75,20 +75,20 @@ def get_all_tasks_from_user(username):
     except Exception as e:
         return str(e)
 
-@app.route("/get_all_tasks_for_today_from_<username>", methods=["GET"])
-def get_all_tasks_for_today(username):
+@app.route("/get_all_tasks_for_<today>_from_<username>", methods=["GET"])
+def get_all_tasks_for_today(today, username):
     final_username = str(username)
     try:
-        records = ControllerDB.get_all_tasks_for_today(final_username)
+        records = ControllerDB.get_all_tasks_for_today(today, final_username)
         return str(records)
     except Exception as e:
         return str(e)
 
-@app.route("/get_all_tasks_to_do_for_today_from_<username>", methods=["GET"])
-def get_all_tasks_to_do_for_today(username):
+@app.route("/get_all_tasks_to_do_for_<today>_from_<username>", methods=["GET"])
+def get_all_tasks_to_do_for_today(today, username):
     final_username = str(username)
     try:
-        records = ControllerDB.get_all_tasks_to_do_for_today(final_username)
+        records = ControllerDB.get_all_tasks_to_do_for_today(today, final_username)
         return str(records)
     except Exception as e:
         return str(e)
@@ -189,5 +189,5 @@ def run():
     app.run(debug=False)
 
 if __name__ == '__main__':
-    # run()
-    test()
+    run()
+    # test()
