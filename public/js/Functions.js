@@ -75,7 +75,11 @@ function getDate(dateString) {
 }
 
 function getActualDate() {
-    return 0;
+    const dt = new Date();
+    const day = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
+    const month = (dt.getMonth() + 1) < 10 ? "0" + (dt.getMonth() + 1) : (dt.getMonth() + 1);
+    console.log(`${dt.getFullYear()}-${month}-${day}`);
+    return `${dt.getFullYear()}-${month}-${day}`;
 }
 
 // addEventListener("beforeunload", (event) => {

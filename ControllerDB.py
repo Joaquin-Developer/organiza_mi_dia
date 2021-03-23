@@ -3,7 +3,7 @@ import pymysql, json, datetime
 from models import Task
 from database import data_connection
 
-debug_mode_on = True    # False: in deployment!
+debug_mode_on = False    # False: in deployment!
 # Nota:
 # Podrían mejorarse las conversiónes de 
 # touple a JSON aplicando alguna librería externa!
@@ -127,11 +127,11 @@ def get_all_tasks_from_user(username):
     
     return str(data).replace("'", '"')
 
-def get_all_tasks_for_today(username):
+def get_all_tasks_for_today(today, username):
     sql_query = """select tu.id, tu.username, t.name, t.description, t.date_task,
     t.status from task_user tu join task t on(t.id=tu.id)
-    where tu.username='{}' and t.is_active=1 and t.date_task = curdate() order by t.date_task asc"""
-    records = select_query(sql_query.format(username), get_json=False)
+    where tu.username='{}' and t.is_active=1 and t.date_task = '{}' order by t.date_task asc"""
+    records = select_query(sql_query.format(username, today), get_json=False)
     data = []
     for t in records:
         task = Task.Task(t[0], t[2], t[3], t[4], t[5])
@@ -139,12 +139,12 @@ def get_all_tasks_for_today(username):
     
     return str(data).replace("'", '"')
 
-def get_all_tasks_to_do_for_today(username):
+def get_all_tasks_to_do_for_today(today, username):
     sql_query = """select tu.id, tu.username, t.name, t.description, t.date_task,
     t.status from task_user tu join task t on(t.id=tu.id)
-    where tu.username='{}' and t.is_active=1 and t.date_task = curdate() and status = 0 
+    where tu.username='{}' and t.is_active=1 and t.date_task = '{}' and status = 0 
     order by t.date_task asc"""
-    records = select_query(sql_query.format(username), get_json=False)
+    records = select_query(sql_query.format(username, today), get_json=False)
     data = []
     for t in records:
         task = Task.Task(t[0], t[2], t[3], t[4], t[5])
