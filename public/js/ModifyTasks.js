@@ -94,6 +94,7 @@ document.querySelector("#btnSaveTask").addEventListener("click", async (evt) => 
             "name": document.getElementById("input_name_task").value, 
             "description": document.querySelector("#input_description").value, 
             "date_task": document.querySelector("#date_task").value,
+            "status": document.getElementById("select_task_status").value === "1" ? true : false,
             "username": sessionStorage.getItem("username_organizaMiDia")
         })
     });

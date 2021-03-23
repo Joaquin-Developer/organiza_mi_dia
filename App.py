@@ -3,10 +3,12 @@
 from flask import Flask, render_template, request, json, send_from_directory, jsonify, Response
 import ControllerDB
 from models import Task
+from flask_cors import CORS, cross_origin
 import datetime
 import os
 
 app = Flask(__name__)
+CORS(app)   # permit all origins
 
 @app.route("/", methods = ["GET"])
 def index():
@@ -144,7 +146,7 @@ def insert_task():
 @app.route("/update_task", methods=["POST"])
 def update_task():
     data = request.get_json(force=True)
-    task = Task.Task(data.get("id"), data.get("name"), data.get("description"), data.get("date_task"), status=False)
+    task = Task.Task(data.get("id"), data.get("name"), data.get("description"), data.get("date_task"), data.get("status"))
     try:
         ControllerDB.update_task(task, data.get("username"))
         return json.dumps({"status": True}, ensure_ascii= False)
@@ -187,5 +189,5 @@ def run():
     app.run(debug=False)
 
 if __name__ == '__main__':
-    run()
-    # test()
+    # run()
+    test()

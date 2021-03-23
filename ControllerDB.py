@@ -3,7 +3,7 @@ import pymysql, json, datetime
 from models import Task
 from database import data_connection
 
-debug_mode_on = False    # False: in deployment!
+debug_mode_on = True    # False: in deployment!
 # Nota:
 # Podrían mejorarse las conversiónes de 
 # touple a JSON aplicando alguna librería externa!
@@ -15,8 +15,7 @@ def get_connection():
             return pymysql.connect(
                 user = data_connection.dev_database_user,
                 password = data_connection.dev_database_passw,
-		host ="http://den1.mysql1.gear.host/3306",
-                # host = data_connection.dev_database_host,
+                host = data_connection.dev_database_host,
                 database = data_connection.dev_database_name
             )
         else:
