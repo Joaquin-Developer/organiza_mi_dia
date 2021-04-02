@@ -93,20 +93,20 @@ def get_all_tasks_to_do_for_today(today, username):
     except Exception as e:
         return str(e)
 
-@app.route("/get_all_tasks_for_this_week_from_<username>", methods=["GET"])
-def get_all_tasks_for_this_week(username):
+@app.route("/get_all_tasks_for_this_week_from_<username>_actualdate_<today>", methods=["GET"])
+def get_all_tasks_for_this_week(username, today):
     final_username = str(username)
     try:
-        records = ControllerDB.get_all_tasks_for_this_week(final_username)
+        records = ControllerDB.get_all_tasks_for_this_week(today, final_username)
         return str(records)
     except Exception as e:
         return str(e)
 
-@app.route("/get_all_tasks_for_this_week_to_do_from_<username>", methods=["GET"])
-def get_all_tasks_for_this_week_to_do(username):
+@app.route("/get_all_tasks_for_this_week_to_do_from_<username>_actualdate_<today>", methods=["GET"])
+def get_all_tasks_for_this_week_to_do(username, today):
     final_username = str(username)
     try:
-        records = ControllerDB.get_all_tasks_for_this_week_to_do(final_username)
+        records = ControllerDB.get_all_tasks_for_this_week_to_do(today, final_username)
         return str(records)
     except Exception as e:
         return str(e)

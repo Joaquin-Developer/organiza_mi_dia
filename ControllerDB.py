@@ -151,12 +151,12 @@ def get_all_tasks_to_do_for_today(today, username):
         data.append(task_to_object(task))    
     return str(data).replace("'", '"')
 
-def get_all_tasks_for_this_week(username):
+def get_all_tasks_for_this_week(today, username):
     sql_query = """select tu.id, tu.username, t.name, t.description, t.date_task,
     t.status from task_user tu join task t on(t.id=tu.id)
-    where tu.username='{}' and t.is_active=1 and week(date_task,3) = week(curdate(), 3)
+    where tu.username='{}' and t.is_active=1 and week(date_task,3) = week('{}', 3)
     order by t.date_task asc"""
-    records = select_query(sql_query.format(username), get_json=False)
+    records = select_query(sql_query.format(username, today), get_json=False)
     data = []
     for t in records:
         task = Task.Task(t[0], t[2], t[3], t[4], t[5])
@@ -175,13 +175,13 @@ def get_all_tasks_done(username):
         data.append(task_to_object(task))    
     return str(data).replace("'", '"')
 
-def get_all_tasks_for_this_week_to_do(username):
+def get_all_tasks_for_this_week_to_do(today, username):
     sql_query = """select tu.id, tu.username, t.name, t.description, t.date_task,
     t.status from task_user tu join task t on(t.id=tu.id)
     where tu.username='{}' and t.is_active=1 
-    and status = 0 and week(date_task,3) = week(curdate(), 3)
+    and status = 0 and week(date_task,3) = week('{}', 3)
     order by t.date_task asc"""
-    records = select_query(sql_query.format(username), get_json=False)
+    records = select_query(sql_query.format(username, today), get_json=False)
     data = []
     for t in records:
         task = Task.Task(t[0], t[2], t[3], t[4], t[5])
