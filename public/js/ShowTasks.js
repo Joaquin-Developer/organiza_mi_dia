@@ -85,11 +85,11 @@ async function getMyTasks() {
         switch (parseInt(selectFilter.value)) {
             case 1: return await (await fetch(`/get_all_tasks_for_${getActualDate()}_from_${userName}`)).json();
             case 2: return await (await fetch(`/get_all_tasks_to_do_for_${getActualDate()}_from_${userName}`)).json();
-            case 3: return await (await fetch("/get_all_tasks_for_this_week_from_" + userName)).json();
-            case 4: return await (await fetch("/get_all_tasks_for_this_week_to_do_from_" + userName)).json();
-            case 5: return await (await fetch("/get_all_tasks_done_from_" + userName)).json();
-            case 6: return await (await fetch("/get_all_tasks_to_do_from_" + userName)).json();
-            case 7: return await (await fetch("/get_tasks_from_" + userName)).json();
+            case 3: return await (await fetch(`/get_all_tasks_for_this_week_from_${userName}_actualdate_${getActualDate()}`)).json();
+            case 4: return await (await fetch(`/get_all_tasks_for_this_week_to_do_from_${userName}_actualdate_${getActualDate()}`)).json();
+            case 5: return await (await fetch(`/get_all_tasks_done_from_${userName}`)).json();
+            case 6: return await (await fetch(`/get_all_tasks_to_do_from_${userName}`)).json();
+            case 7: return await (await fetch(`/get_tasks_from_${userName}`)).json();
             default: 
                 showAlert("error", "Opción incorrecta.");
                 return [];
