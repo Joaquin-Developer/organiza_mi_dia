@@ -6,6 +6,7 @@ from models import Task
 from flask_cors import CORS, cross_origin
 import datetime
 import os
+from config import Config
 
 app = Flask(__name__)
 CORS(app)   # permit all origins
@@ -189,5 +190,7 @@ def run():
     app.run(debug=False)
 
 if __name__ == '__main__':
-    run()
-    # test()
+    if (Config.config.get("debug_mode")):
+        test()
+    else: 
+        run()
