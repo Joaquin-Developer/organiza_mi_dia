@@ -34,6 +34,7 @@ async function showMyTasks() {
         buttonModify.addEventListener("click", (event) => {
             showEditTask(event.target.parentNode.parentNode.id);
             document.querySelector(".form_edit_tasks").classList.remove("none");
+            location.href = "#form_edit_tasks";
         });
         tdButton.appendChild(buttonModify);
         
