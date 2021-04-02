@@ -2,15 +2,12 @@
 import pymysql, json, datetime
 from models import Task
 from database import data_connection
+from config import Config
 
-debug_mode_on = False    # False: in deployment!
-# Nota:
-# Podrían mejorarse las conversiónes de 
-# touple a JSON aplicando alguna librería externa!
 
 def get_connection():
     try:
-        if debug_mode_on:
+        if Config.config.get("debug_mode"):
             # localhost database
             return pymysql.connect(
                 user = data_connection.dev_database_user,
