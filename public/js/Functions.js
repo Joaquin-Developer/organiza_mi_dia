@@ -26,6 +26,10 @@ function showAlert(typeAlert, textAlert) {
         alertElem = document.querySelector("#errorAlert");
     } else if (typeAlert === "success") {
         alertElem = document.querySelector("#successAlert");
+    } else if (typeAlert === "error_remove_task") {
+        alertElem = document.querySelector("#error_alert_remove_task");
+    } else if (typeAlert === "success_remove_task") {
+        alertElem = document.querySelector("#success_alert_remove_task");
     } else { return; }
 
     if (alertElem.firstChild) alertElem.removeChild(alertElem.firstChild);

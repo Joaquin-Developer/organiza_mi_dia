@@ -28,21 +28,37 @@ async function showMyTasks() {
         const statusTask = task.status === 1 ? "Hecho" : "Pendiente";
         tdStatus.appendChild(document.createTextNode(statusTask));
 
-        const tdButton = document.createElement("TD");
+        const tdButtonModify = document.createElement("TD");
         const buttonModify = document.createElement("button");
         buttonModify.appendChild(document.createTextNode("Editar"));
+        buttonModify.classList.add("btn", "btn-warning", "btn-sm");
         buttonModify.addEventListener("click", (event) => {
             showEditTask(event.target.parentNode.parentNode.id);
             document.querySelector(".form_edit_tasks").classList.remove("none");
             location.href = "#form_edit_tasks";
         });
-        tdButton.appendChild(buttonModify);
+        tdButtonModify.appendChild(buttonModify);
+
+        const tdButtonRemove = document.createElement("TD");
+        const btnRemove = document.createElement("button");
+        btnRemove.appendChild(document.createTextNode("X"));
+        btnRemove.classList.add("btn", "btn-danger", "btn-sm");
+
+        btnRemove.addEventListener("click", async (event) => {
+            event.preventDefault();
+            const name = event.target.parentNode.parentNode.children[0].textContent;
+            if (confirm(`¿Está seguro de borrar la tarea con el nombre "${name}"?`)) {
+                await removeTask(event.target.parentNode.parentNode.id);
+            }
+        });
+        tdButtonRemove.appendChild(btnRemove);
         
         tr.appendChild(tdName);
         tr.appendChild(tdDesc);
         tr.appendChild(tdDate);
         tr.appendChild(tdStatus);
-        tr.appendChild(tdButton);
+        tr.appendChild(tdButtonModify);
+        tr.appendChild(tdButtonRemove);
         tbody.appendChild(tr);
     });
 }
@@ -106,3 +122,22 @@ document.querySelector("#btnSaveTask").addEventListener("click", async (evt) => 
     }
     else showAlert("error", "No se pudo procesar tu petición :(");
 });
+
+// Remove Task event:
+async function removeTask(idTask) {    
+    location.href = "#nav";
+    fetch(`/delete_task_by_id_${idTask}`)
+        .then(resp => resp.json())
+        .then(data => {
+            if (data.status) {
+                showAlert("success_remove_task", "Su tarea fué eliminada con éxito.");
+                showMyTasks();
+            } else {
+                showAlert("error_remove_task", "No se pudo procesar tu petición :(");
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            showAlert("error", "Se produjo un error. Vuelva a intentarlo.");
+        })
+}
