@@ -155,7 +155,8 @@ def update_task():
         print(e)
         return json.dumps({"status": False}, ensure_ascii= False)
     
-
+##############################################################################
+# Out of use:
 @app.route("/delete_task_from_user", methods=["POST"])
 def delete_task_from_user():
     req = request.get_json(force=True)
@@ -172,6 +173,18 @@ def delete_task_from_user():
     except Exception as e:
         print(e)
         return str(e)
+##############################################################################        
+
+@app.route("/delete_task_by_id_<id>", methods = ["GET"])
+def delete_task_by_id(id):
+    final_id = str(id)
+    try:
+        ControllerDB.remove_task_by_id(final_id)
+        return json.dumps({"status": True}, ensure_ascii = False)
+    except Exception as e:
+        return json.dumps({"status": False}, ensure_ascii = False)
+    # return json.dumps({ "data": message }, ensure_ascii= False)
+
 
 # return css and static files:
 @app.route('/public/<path:path>')

@@ -215,6 +215,10 @@ def delete_task_from_user(id_task):
 def delete_all_tasks_from_user(username):
     pass
 
+def remove_task_by_id(id_task):
+    sql_query = "update task set is_active = 0 where id={}".format(id_task)
+    query(sql_query)
+
 # t as task()
 def task_to_object(t):
     return {"id": t.id_task, "name": t.name, "description": t.description, "date": date_to_js_format(t.date_task), "status": t.status}
