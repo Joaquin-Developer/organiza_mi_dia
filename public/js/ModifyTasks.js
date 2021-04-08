@@ -41,7 +41,7 @@ async function showMyTasks() {
 
         const tdButtonRemove = document.createElement("TD");
         const btnRemove = document.createElement("button");
-        btnRemove.appendChild(document.createTextNode("X"));
+        btnRemove.appendChild(document.createTextNode("Eliminar"));
         btnRemove.classList.add("btn", "btn-danger", "btn-sm");
 
         btnRemove.addEventListener("click", async (event) => {
