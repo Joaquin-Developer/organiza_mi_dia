@@ -52,6 +52,13 @@
             <button id="btnSaveTask" class="btn btn-secondary" type="submit">Modificar</button>
         </div><br>
     </form>
+    <hr>
+    <form>
+        <h4>Gestionar mis registros de tareas:</h4>
+        <button class="btn btn-warning" id="set_all_task_status">Marcar todas mis tareas como realizadas</button><br><br>
+        <button class="btn btn-danger" id="delete_all_tasks">Borrar todas mis tareas</button>
+
+    </form>
 </div>
 {% endblock %}
 {% block scripts %}<script src="/public/js/ModifyTasks.js"></script>{% endblock %}    
