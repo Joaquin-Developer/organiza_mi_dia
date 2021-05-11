@@ -213,6 +213,8 @@ def delete_task_from_user(id_task):
     query(sql_query)
 
 def delete_all_tasks_from_user(username):
+    sql_query = ""  # seguir...
+    query(sql_query)
     pass
 
 def remove_task_by_id(id_task):
