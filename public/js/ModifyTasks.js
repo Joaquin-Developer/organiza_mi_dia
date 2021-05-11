@@ -141,3 +141,21 @@ async function removeTask(idTask) {
             showAlert("error", "Se produjo un error. Vuelva a intentarlo.");
         })
 }
+
+/**
+ * delete all tasks and set status of all tasks
+ * Functions:
+ */
+document.querySelector("#set_all_task_status").addEventListener("click", (evt) => {
+    evt.preventDefault();
+    if (confirm("¿Estás seguro de modificar todas las tareas a realizadas?")) {
+        // fetch...
+    }
+});
+
+document.querySelector("#delete_all_tasks").addEventListener('click', (evt) => {
+    evt.preventDefault();
+    if (confirm("¿Estás seguro de borrar todas tus tareas?")) {
+        // fetch...
+    }
+})
