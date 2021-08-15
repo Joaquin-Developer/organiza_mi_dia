@@ -34,3 +34,21 @@ body {
 .formLogin { display: block; }
 .none { display: none }
 .block { display: block; }
+
+/* quick_tasks.html: */
+
+.quick_task {
+    margin-top: 30px;
+}
+
+.line-through {
+    text-decoration:line-through;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.form_new_quicktask {
+    margin-block-end: 25px;
+}

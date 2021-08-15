@@ -29,6 +29,10 @@ def get_modify_my_tasks():
 def get_sign_in():
     return render_template("sign_in.html", title = "Registro")
 
+@app.route("/quick_tasks", methods = ["GET"])
+def get_quick_tasks():
+    return render_template("quick_tasks.html", title = "Tareas rápidas")
+
 @app.route("/function_sign_in", methods = ["POST"])
 def sign_in():
     try:
@@ -46,8 +50,6 @@ def sign_in():
 # Provisorie:
 # @app.route("/index", methods = ["GET"])
 # def get_index_page():
-#     # task = Task.Task(1212, "Práctico 2 GAL1", "Sistemas Lineales", datetime.date.today(), True)
-    
 #     #return render_template("index.html")
 #     try:
 #         return ControllerDB.get_task_id("Practico 1 GAL", "Repdede")
@@ -185,6 +187,17 @@ def delete_task_by_id(id):
         return json.dumps({"status": False}, ensure_ascii = False)
     # return json.dumps({ "data": message }, ensure_ascii= False)
 
+##############################################################################    
+@app.route("/delete_all_tasks_from_user_<username>", methods = ["POST"])
+def delete_all_tasks_from_user(username):
+    # missing authentication...
+
+    try:
+        ControllerDB.delete_all_tasks_from_user(username)
+        return json.dumps({"status": True}, ensure_ascii = False)
+        print("Se realizó una baja lógica de las tareas del usuario {}".format(username))
+    except Exception as e:
+        return json.dumps({ "status": False }, ensure_ascii = False)
 
 # return css and static files:
 @app.route('/public/<path:path>')
