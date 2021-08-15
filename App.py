@@ -29,6 +29,10 @@ def get_modify_my_tasks():
 def get_sign_in():
     return render_template("sign_in.html", title = "Registro")
 
+@app.route("/quick_tasks", methods = ["GET"])
+def get_quick_tasks():
+    return render_template("quick_tasks.html", title = "Tareas rápidas")
+
 @app.route("/function_sign_in", methods = ["POST"])
 def sign_in():
     try:
