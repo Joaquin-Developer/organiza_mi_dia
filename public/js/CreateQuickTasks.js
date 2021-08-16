@@ -10,7 +10,10 @@ const showAllTasks = () => {
     }
 }
 
-addEventListener("load", showAllTasks);
+addEventListener("load", () => {
+    showAllTasks();
+    setActiveNavItem();
+});
 
 btnNewTask.addEventListener("click", (evt) => {
     evt.preventDefault();

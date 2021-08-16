@@ -1,4 +1,4 @@
-addEventListener("load", function() {
+addEventListener("load", () => {
     setActiveNavItem();
     if (JSON.parse(sessionStorage.getItem("authentication_organizaMiDia"))) {
         showUsernameInNav();
