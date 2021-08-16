@@ -81,12 +81,11 @@ const getDate = (dateString) => {
     return date.charAt(0).toUpperCase() + date.slice(1);
 }
 
-function getActualDate() {
-    const dt = new Date();
-    const day = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
-    const month = (dt.getMonth() + 1) < 10 ? "0" + (dt.getMonth() + 1) : (dt.getMonth() + 1);
-
-    return `${dt.getFullYear()}-${month}-${day}`;
+const getActualDate = () => {
+    const date = new Date().toLocaleDateString().split("/");
+    const day = parseInt(date[0]) < 10 ? "0" + date[0] : date[0];
+    const month = parseInt(date[1]) < 10 ? "0" + date[1] : date[1];
+    return `${day}/${month}/${date[2]}`
 }
 
 // addEventListener("beforeunload", (event) => {
