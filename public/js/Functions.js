@@ -56,26 +56,29 @@ function removeChilds(elem) {
     }
 }
 
-function setActiveNavItem() {
-    if (location.pathname === "/"){
-        document.querySelector("#link_index").classList.add("active");
-    }
-    else if (location.pathname === "/insert_task") {
-        document.querySelector("#link_insert_task").classList.add("active");
-    } 
-    else if (location.pathname === "/modify_my_tasks") {
-        document.querySelector("#link_modify_my_tasks").classList.add("active");
-    }
+const setActiveNavItem = () => {
+    // Path names Array:
+    [
+        { path: "/", selector: "#link_index" },
+        { path: "/insert_task", selector: "#link_insert_task" },
+        { path: "/modify_my_tasks", selector: "#link_modify_my_tasks" }, 
+        { path: "/quick_tasks", selector: "#link_quick_tasks" }
+    ]
+    .some((elem) => { 
+        if (location.pathname === elem.path) {
+            document.querySelector(elem.selector).classList.add("active");
+            return true;
+        } 
+    });
+
 }
 
-function getDate(dateString) {
-    let days = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
-    let months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo",
-        "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-    
-    const month = months[parseInt(dateString.split("-")[1]) - 1];
-    const day = days[new Date(dateString + " ").getDay()];
-    return `${day} ${dateString.split("-")[2]} de ${month}`;
+const getDate = (dateString) => {
+    const dateObject = new Date(dateString);
+    let date = dateObject.toLocaleDateString("es-UY", {
+        day: 'numeric', month: 'long', weekday: 'long' 
+    });
+    return date.charAt(0).toUpperCase() + date.slice(1);
 }
 
 function getActualDate() {

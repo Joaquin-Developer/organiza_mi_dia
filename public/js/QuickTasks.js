@@ -11,10 +11,10 @@ class QuickTask {
             allTasks = new Array();
         }
         allTasks.push(quickTask);
-        localStorage.setItem('all_tasks', JSON.stringify(allTasks));
+        localStorage.setItem('all_quicktasks', JSON.stringify(allTasks));
     }
 
-    static getAllTasks = () => JSON.parse(localStorage.getItem('all_tasks'));
+    static getAllTasks = () => JSON.parse(localStorage.getItem('all_quicktasks'));
     
     static insertTask(quickTask) {
         let liTask = document.createElement("li")
@@ -41,10 +41,12 @@ class QuickTask {
 
     #event_removeTask(evt) {
         if (confirm("¿Seguro que deseas eliminar la tarea?")) {
-            // label.parentElement.parentElement.removeChild(label.parentElement)
-            /**
-             * Seguir...
-             */
+            const label = evt.srcElement;
+            const nameQuickTask = label.textContent
+            // remove task from Storage:
+            QuickTask.removeTask(nameQuickTask)
+            // remove task from view:
+            label.parentElement.parentElement.removeChild(label.parentElement)
         }
     }
 
@@ -64,15 +66,28 @@ class QuickTask {
         QuickTask.updateTaskStatus(taskName);
     }
 
+    static removeTask(taskname) {
+        const allTasks = this.getAllTasks();
+
+        for (let index in allTasks) { 
+            if (allTasks[index].name == taskname) {
+                allTasks.splice(index, 1);
+                break;
+            }
+        }
+        localStorage.setItem('all_quicktasks', JSON.stringify(allTasks));
+    }
+
     static updateTaskStatus(taskname) {
         const allTasks = this.getAllTasks();
         for (let task of allTasks) {
             if (task.name === taskname) {
                 task.finished = (!task.finished);
+                break;
             }
         }
         
-        localStorage.setItem('all_tasks', JSON.stringify(allTasks));
+        localStorage.setItem('all_quicktasks', JSON.stringify(allTasks));
     }
 
 }
