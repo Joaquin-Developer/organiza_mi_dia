@@ -85,7 +85,7 @@ const getActualDate = () => {
     const date = new Date().toLocaleDateString().split("/");
     const day = parseInt(date[0]) < 10 ? "0" + date[0] : date[0];
     const month = parseInt(date[1]) < 10 ? "0" + date[1] : date[1];
-    return `${day}/${month}/${date[2]}`
+    return `${date[2]}-${month}-${day}`
 }
 
 // addEventListener("beforeunload", (event) => {
