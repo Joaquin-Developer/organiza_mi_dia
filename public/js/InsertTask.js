@@ -1,9 +1,10 @@
+
 addEventListener("load", () => {
     setActiveNavItem();
     if (JSON.parse(sessionStorage.getItem("authentication_organizaMiDia"))) {
         showUsernameInNav();
         document.getElementById("date_task").value = getActualDate();
-    }  else {
+    } else {
         location.href = "/";
     }
 });
@@ -19,7 +20,6 @@ document.querySelector("#btnSaveTask").addEventListener("click", async (event) =
     } else {
         showAlert("error", "Debes completar todos los datos.");
     }
-
 });
 
 async function insertTask() {

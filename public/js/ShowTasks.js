@@ -54,29 +54,35 @@ document.querySelector("#btnLogin").addEventListener("click", async (evt) => {
 });
 
 async function showMyTasks() {
-    const data = await getMyTasks();
-    sessionStorage.setItem("myTasks_organizaMiDia", JSON.stringify(data));
-    const tbody = document.querySelector("#tbodyMyTasks");
-    removeChilds(tbody);
-
-    data.forEach(task => {
-        const tr = document.createElement("TR");
-        const tdName = document.createElement("TD");
-        tdName.appendChild(document.createTextNode(task.name));
-        const tdDesc = document.createElement("TD");
-        tdDesc.appendChild(document.createTextNode(task.description));
-        const tdDate = document.createElement("TD");
-        tdDate.appendChild(document.createTextNode(getDate(task.date)));
-        const tdStatus = document.createElement("TD");
-
-        const statusTask = task.status === 1 ? "Hecho" : "Pendiente";
-        tdStatus.appendChild(document.createTextNode(statusTask));
-        tr.appendChild(tdName);
-        tr.appendChild(tdDesc);
-        tr.appendChild(tdDate);
-        tr.appendChild(tdStatus);
-        tbody.appendChild(tr);
-    });
+    try {
+        const data = await getMyTasks();
+        console.log(data);
+        sessionStorage.setItem("myTasks_organizaMiDia", JSON.stringify(data));
+        const tbody = document.querySelector("#tbodyMyTasks");
+        removeChilds(tbody);
+    
+        data.forEach(task => {
+            const tr = document.createElement("TR");
+            const tdName = document.createElement("TD");
+            tdName.appendChild(document.createTextNode(task.name));
+            const tdDesc = document.createElement("TD");
+            tdDesc.appendChild(document.createTextNode(task.description));
+            const tdDate = document.createElement("TD");
+            tdDate.appendChild(document.createTextNode(getDate(task.date)));
+            const tdStatus = document.createElement("TD");
+    
+            const statusTask = task.status === 1 ? "Hecho" : "Pendiente";
+            tdStatus.appendChild(document.createTextNode(statusTask));
+            tr.appendChild(tdName);
+            tr.appendChild(tdDesc);
+            tr.appendChild(tdDate);
+            tr.appendChild(tdStatus);
+            tbody.appendChild(tr);
+        });
+        
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 async function getMyTasks() {
