@@ -52,7 +52,6 @@ class QuickTask {
 
     #event_updateTaskStatus(evt) {
         const element = evt.srcElement;
-        console.log(`src element: ${element}`)
         let taskName = element.id.split('_')[1];
         // remove line from label:
         const label = element.parentElement.childNodes[1]

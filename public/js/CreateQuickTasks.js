@@ -15,13 +15,21 @@ addEventListener("load", () => {
     setActiveNavItem();
 });
 
-btnNewTask.addEventListener("click", (evt) => {
-    evt.preventDefault();
-    
+const event_newTask = (evt) => {
     if (inputNewTask.value) {
         const task = new QuickTask(inputNewTask.value, false);
         QuickTask.insertTask(task);
         QuickTask.saveTask(task);
         inputNewTask.value = "";
     }
+
+}
+
+btnNewTask.addEventListener("click", (evt) => {
+    evt.preventDefault();
+    event_newTask();
 });
+
+inputNewTask.addEventListener("keypress", (evt) => {
+    if (evt.key === "Enter") event_newTask();
+})
