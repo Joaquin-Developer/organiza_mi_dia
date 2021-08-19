@@ -4,8 +4,7 @@ from flask import Flask, render_template, request, json, send_from_directory, js
 import ControllerDB
 from models import Task
 from flask_cors import CORS, cross_origin
-import datetime
-import os
+import datetime, os
 from config import Config
 
 app = Flask(__name__)
@@ -156,7 +155,21 @@ def update_task():
     except Exception as e:
         print(e)
         return json.dumps({"status": False}, ensure_ascii= False)
-    
+
+@app.route("/change_status_of_all_tasks_to_done", methods = ["POST"])
+def change_status_of_all_tasks_to_done():
+    req = request.get_json(force=True)
+    username = req.get("username")
+    # (add webToken validation...)
+    # key = str(req.get("key_value"))
+    try:
+        ControllerDB.change_status_of_all_tasks_to_done(username)
+        return json.dumps({ "status": True }, ensure_ascii= False)
+    except Exception as e:
+        print(e)
+        return json.dumps({ "status": False }, ensure_ascii= False)
+
+
 ##############################################################################
 # Out of use:
 @app.route("/delete_task_from_user", methods=["POST"])
@@ -188,14 +201,16 @@ def delete_task_by_id(id):
     # return json.dumps({ "data": message }, ensure_ascii= False)
 
 ##############################################################################    
-@app.route("/delete_all_tasks_from_user_<username>", methods = ["POST"])
-def delete_all_tasks_from_user(username):
+@app.route("/delete_all_tasks_from_user", methods = ["POST"])
+def delete_all_tasks_from_user():
     # missing authentication...
-
+    req = request.get_json(force=True)
+    username = req.get("username")
+    # ....
     try:
         ControllerDB.delete_all_tasks_from_user(username)
         return json.dumps({"status": True}, ensure_ascii = False)
-        print("Se realizó una baja lógica de las tareas del usuario {}".format(username))
+        print(f"Se realizó una baja lógica de todas las tareas del usuario { username }")
     except Exception as e:
         return json.dumps({ "status": False }, ensure_ascii = False)
 

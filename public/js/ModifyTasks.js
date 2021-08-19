@@ -146,16 +146,41 @@ async function removeTask(idTask) {
  * delete all tasks and set status of all tasks
  * Functions:
  */
-document.querySelector("#set_all_task_status").addEventListener("click", (evt) => {
+document.querySelector("#set_all_task_status").addEventListener("click", async (evt) => {
     evt.preventDefault();
     if (confirm("¿Estás seguro de modificar todas las tareas a realizadas?")) {
-        // fetch...
+        
+        const request = await fetch("/change_status_of_all_tasks_to_done", {
+            method: "POST", headers: { 'Content-Type': 'application/json' },
+            mode: 'no-cors', body: JSON.stringify({ 
+                "username": sessionStorage.getItem("username_organizaMiDia")
+            })
+        });
+
+        const statusReq = await request.json();
+        if (statusReq.status) {
+            showAlert("success", "¡El estado de todas las tareas se modificó con éxito!");
+            await showMyTasks();
+        }
+        else showAlert("error", "No se pudo procesar tu petición :(");
     }
 });
 
-document.querySelector("#delete_all_tasks").addEventListener('click', (evt) => {
+document.querySelector("#delete_all_tasks").addEventListener('click', async (evt) => {
     evt.preventDefault();
     if (confirm("¿Estás seguro de borrar todas tus tareas?")) {
-        // fetch...
+        const request = await fetch("/delete_all_tasks_from_user", {
+            method: "POST", headers: { 'Content-Type': 'application/json' },
+            mode: 'no-cors', body: JSON.stringify({ 
+                "username": sessionStorage.getItem("username_organizaMiDia")
+            })
+        });
+
+        const statusReq = await request.json();
+        if (statusReq.status) {
+            showAlert("success", "Se borarron todas tus tareas.");
+            await showMyTasks();
+        }
+        else showAlert("error", "No se pudo procesar tu petición :(");
     }
 })
