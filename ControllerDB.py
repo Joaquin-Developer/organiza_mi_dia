@@ -208,14 +208,28 @@ def update_task(task, username):
     where id = {} """
     query(sql_query.format(task.name, task.description, task.date_task, task.status, task.id_task))
 
+def change_status_of_all_tasks_to_done(username):
+    sql_query = """
+    update task
+    inner join task_user on task.id = task_user.id
+    set is_active = 0
+    where task_user.username = '{}'
+    """
+    query(sql_query.format(username))
+
+
 def delete_task_from_user(id_task):
     sql_query = "update task set is_active=0 where id={}".format(id_task)
     query(sql_query)
 
 def delete_all_tasks_from_user(username):
-    sql_query = ""  # seguir...
-    query(sql_query)
-    pass
+    sql_query = """
+    update task
+    inner join task_user on task.id = task_user.id
+    set is_active = 0
+    where task_user.username = '{}'
+    """
+    query(sql_query.format(username))
 
 def remove_task_by_id(id_task):
     sql_query = "update task set is_active = 0 where id={}".format(id_task)
