@@ -1,4 +1,4 @@
-function showHideElement(idElem, typeParam, action) {
+const showHideElement = (idElem, typeParam, action) => {
     let elem;
     if (typeParam === "id") {
         elem = document.querySelector("#" + idElem);
@@ -15,12 +15,12 @@ function showHideElement(idElem, typeParam, action) {
     }   
 }
 
-function showUsernameInNav() {
+const showUsernameInNav = () => {
     const elem = document.querySelector(".nav-username");
     elem.appendChild(document.createTextNode(`Usuario: ${sessionStorage.getItem("username_organizaMiDia")}`));
 }
 
-function showAlert(typeAlert, textAlert) {
+const showAlert = (typeAlert, textAlert) => {
     let alertElem = null;
     if (typeAlert === "error") {
         alertElem = document.querySelector("#errorAlert");
@@ -40,17 +40,17 @@ function showAlert(typeAlert, textAlert) {
     }, 6000);
 }
 
-function showHtmlElement(element) {
+const showHtmlElement = (element)=> {
     element.classList.remove("none");
     element.classList.add("block");
 }
 
-function hideHtmlElement(element) {
+const hideHtmlElement = (element)=> {
     element.classList.remove("block");
     element.classList.add("none");
 }
 
-function removeChilds(elem) {
+const removeChilds = (elem) => {
     while (elem.firstChild) { 
         elem.removeChild(elem.firstChild);
     }

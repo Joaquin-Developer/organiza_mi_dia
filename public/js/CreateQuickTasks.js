@@ -11,8 +11,14 @@ const showAllTasks = () => {
 }
 
 addEventListener("load", () => {
-    showAllTasks();
     setActiveNavItem();
+
+    if (JSON.parse(sessionStorage.getItem("authentication_organizaMiDia"))) {
+        showUsernameInNav();
+        showAllTasks();
+    } else {
+        location.href = "/";
+    }
 });
 
 const event_newTask = (evt) => {
