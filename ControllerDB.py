@@ -122,7 +122,8 @@ def get_all_tasks_from_user(username):
         task = Task.Task(t[0], t[2], t[3], t[4], t[5])
         data.append(task_to_object(task))
     
-    return str(data).replace("'", '"')
+    # return str(data).replace("'", '"')
+    return str(json.dumps(data))
 
 def get_all_tasks_for_today(today, username):
     sql_query = """select tu.id, tu.username, t.name, t.description, t.date_task,
@@ -133,9 +134,9 @@ def get_all_tasks_for_today(today, username):
     for t in records:
         task = Task.Task(t[0], t[2], t[3], t[4], t[5])
         data.append(task_to_object(task))
-    
-    return str(data).replace("'", '"')
 
+    return str(json.dumps(data))
+    
 def get_all_tasks_to_do_for_today(today, username):
     sql_query = """select tu.id, tu.username, t.name, t.description, t.date_task,
     t.status from task_user tu join task t on(t.id=tu.id)
@@ -146,7 +147,8 @@ def get_all_tasks_to_do_for_today(today, username):
     for t in records:
         task = Task.Task(t[0], t[2], t[3], t[4], t[5])
         data.append(task_to_object(task))    
-    return str(data).replace("'", '"')
+    # return str(data).replace("'", '"')
+    return str(json.dumps(data))
 
 def get_all_tasks_for_this_week(today, username):
     sql_query = """select tu.id, tu.username, t.name, t.description, t.date_task,
@@ -158,7 +160,8 @@ def get_all_tasks_for_this_week(today, username):
     for t in records:
         task = Task.Task(t[0], t[2], t[3], t[4], t[5])
         data.append(task_to_object(task))    
-    return str(data).replace("'", '"')
+    # return str(data).replace("'", '"')
+    return str(json.dumps(data))
 
 def get_all_tasks_done(username):
     sql_query = """select tu.id, tu.username, t.name, t.description, t.date_task,
@@ -170,7 +173,8 @@ def get_all_tasks_done(username):
     for t in records:
         task = Task.Task(t[0], t[2], t[3], t[4], t[5])
         data.append(task_to_object(task))    
-    return str(data).replace("'", '"')
+    # return str(data).replace("'", '"')
+    return str(json.dumps(data))
 
 def get_all_tasks_for_this_week_to_do(today, username):
     sql_query = """select tu.id, tu.username, t.name, t.description, t.date_task,
@@ -183,7 +187,8 @@ def get_all_tasks_for_this_week_to_do(today, username):
     for t in records:
         task = Task.Task(t[0], t[2], t[3], t[4], t[5])
         data.append(task_to_object(task))    
-    return str(data).replace("'", '"')
+    # return str(data).replace("'", '"')
+    return str(json.dumps(data))
 
 def get_all_tasks_to_do(username):
     sql_query = """select tu.id, tu.username, t.name, t.description, t.date_task,
@@ -195,7 +200,8 @@ def get_all_tasks_to_do(username):
     for t in records:
         task = Task.Task(t[0], t[2], t[3], t[4], t[5])
         data.append(task_to_object(task))    
-    return str(data).replace("'", '"')
+    # return str(data).replace("'", '"')
+    return str(json.dumps(data))
 
 
 def update_task(task, username):
